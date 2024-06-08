@@ -1,19 +1,19 @@
 /**
-* This is an example problem. Please follow the instructions on how to complete the problems.
-* If there are any questions please feel free to ask.
-*/
+ * This is an example problem. Please follow the instructions on how to complete the problems.
+ * If there are any questions please feel free to ask.
+ */
 
 // Each problem has a function in which you add your code so solve the problem.
 function wasteTime() {
-    // You can define variables that you need in the function.
-    let i = 0;
-    //This while will loop until i is equal to 99.
-    while (i < 100) {
-        //Wasting some time.
-        i++;
-    }
-    //All problems should return an answer.
-    return "Please return all your answers";
+  // You can define variables that you need in the function.
+  let i = 0;
+  //This while will loop until i is equal to 99.
+  while (i < 100) {
+    //Wasting some time.
+    i++;
+  }
+  //All problems should return an answer.
+  return "Please return all your answers";
 }
 
 //This is a way a simple way to track how long an operation takes.
@@ -31,15 +31,15 @@ const answers = {};
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
 function sumOfMultiples() {
-    let i = 0;
-    let total = 0;
-    while (i < 1000) {
-        if (i % 3 === 0 || i % 5 === 0) {
-            total = total + i;
-        }
-        i++
+  let i = 0;
+  let total = 0;
+  while (i < 1000) {
+    if (i % 3 === 0 || i % 5 === 0) {
+      total = total + i;
     }
-    return total;
+    i++;
+  }
+  return total;
 }
 
 console.time("sumOfMultiples");
@@ -53,21 +53,23 @@ console.log(answers.sumOfMultiples);
  * By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
  */
 function fibonacciSum() {
-    let max = 4000000;
-    let fibonacciArray = [1, 1];
-    let fibbSum = 0;
-    let fibbNumber = 0;
-    do {
-        fibbNumber = fibonacciArray[fibonacciArray.length - 2] + fibonacciArray[fibonacciArray.length - 1];
-        if (fibbNumber <= max || fibbNumber % 2 === 0) {
-            if (fibbNumber % 2 === 0) {
-                fibbSum += fibbNumber;
-            }
-            fibonacciArray[fibonacciArray.length] = fibbNumber;
-        }
-    } while (fibbNumber < max)
+  let max = 4000000;
+  let fibonacciArray = [1, 1];
+  let fibbSum = 0;
+  let fibbNumber = 0;
+  do {
+    fibbNumber =
+      fibonacciArray[fibonacciArray.length - 2] +
+      fibonacciArray[fibonacciArray.length - 1];
+    if (fibbNumber <= max || fibbNumber % 2 === 0) {
+      if (fibbNumber % 2 === 0) {
+        fibbSum += fibbNumber;
+      }
+      fibonacciArray[fibonacciArray.length] = fibbNumber;
+    }
+  } while (fibbNumber < max);
 
-    return fibbSum;
+  return fibbSum;
 }
 
 console.time("fibonacciSum");
@@ -80,7 +82,28 @@ console.log(answers.fibonacciSum);
  * What is the largest prime factor of the number 600851475143?
  */
 function largestPrimeFactor() {
-    //Your code goes here
+  let n = 600851475143;
+  let largestFactor = 0;
+
+  // Check for the smallest factors first (2 is the only even prime number)
+  while (n % 2 === 0) {
+    largestFactor = 2;
+    n = n / 2;
+  }
+
+  // Check for odd factors from 3 onwards
+  for (let i = 3; i * i <= n; i = i + 2) {
+    while (n % i === 0) {
+      largestFactor = i;
+      n = n / i;
+    }
+  }
+
+  // Check for remaining prime factor
+  if (n > 2) {
+    largestFactor = n;
+  }
+  return largestFactor;
 }
 
 console.time("largestPrimeFactor");
@@ -93,7 +116,28 @@ console.log(answers.largestPrimeFactor);
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
 function largestPalindrome() {
-    //Your code goes here
+  function isPalindrome(number) {
+    const string = number.toString();
+    const reversedString = string.split("").reverse().join("");
+    return string === reversedString;
+  }
+
+  let largestPalindrome = 0;
+  for (let i = 999; i >= 100; i--) {
+    if (i * 999 < largestPalindrome) {
+      break;
+    }
+    for (let j = 999; j >= i; j--) {
+      const product = i * j;
+      if (product <= largestPalindrome) {
+        break;
+      }
+      if (isPalindrome(product)) {
+        largestPalindrome = product;
+      }
+    }
+  }
+  return largestPalindrome;
 }
 
 console.time("largestPalindrome");
@@ -106,7 +150,23 @@ console.log(answers.largestPalindrome);
  * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
  */
 function smallestMultipleOf1to20() {
-    //Your code goes here
+  function isPrime(number) {
+    for (let i = 2, s = Math.sqrt(number); i <= s; i++) {
+      if (number % i === 0) return false;
+    }
+    return true;
+  }
+  let sum = 1;
+  for (let i = 2; i <= 20; i++) {
+    if (isPrime(i)) {
+      let partial = i;
+      while (partial * i <= 20) {
+        partial *= i;
+      }
+      sum *= partial;
+    }
+  }
+  return sum;
 }
 
 console.time("smallestMultipleOf1to20");
@@ -122,7 +182,11 @@ console.log(answers.smallestMultipleOf1to20);
  */
 
 function sumSquareDifference() {
-    //Your code goes here
+  const n = 100;
+  let sumOne = (n * (n + 1)) / 2;
+  sumOne *= sumOne;
+  const sumTwo = (n * (n + 1) * (2 * n + 1)) / 6;
+  return sumOne - sumTwo;
 }
 
 console.time("sumSquareDifference");
@@ -135,7 +199,24 @@ console.log(answers.sumSquareDifference);
  * What is the 10 001st prime number?
  */
 function primeAtPosition() {
-    //Your code goes here
+  const size = 1000005;
+  function buildPrime(array) {
+    let isPrime = Array(size).fill(true);
+
+    for (let p = 2; p * p < size; p++) {
+      if (isPrime[p] == true) {
+        for (let i = p * p; i < size; i += p) isPrime[i] = false;
+      }
+    }
+
+    for (p = 2; p < size; p++) if (isPrime[p]) array.push(p);
+  }
+
+  let primes = [];
+
+  buildPrime(primes);
+
+  return primes[10001];
 }
 
 console.time("primeAtPosition");
@@ -150,7 +231,28 @@ console.log(answers.primeAtPosition);
  */
 
 function largestProductInSeries() {
-    //Your code here
+  function largestProduct(numString, seriesLength) {
+    let maxProduct = 0;
+
+    for (let i = 0; i <= numString.length - seriesLength; i++) {
+      let substring = numString.slice(i, i + seriesLength);
+      let product = substring
+        .split("")
+        .map(Number)
+        .reduce((acc, val) => acc * val, 1);
+
+      if (product > maxProduct) {
+        maxProduct = product;
+      }
+    }
+
+    return maxProduct;
+  }
+  const length = 13;
+  const number =
+    "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450";
+
+  return largestProduct(number, length);
 }
 
 console.time("largestProductInSeries");
@@ -164,7 +266,18 @@ console.log(answers.largestProductInSeries);
  * There exists exactly one Pythagorean triplet for which a + b + c = 1000. Find the product abc.
  */
 function pythagoreanTriplet() {
-    //Your code goes here
+  // a ^ 2 + b ^ 2 = c ^ 2
+  // a + b + c = 1000
+  // a + b = 1000 - c
+  // a ^ 2 + 2ab + b ^ 2 = 1000 ^ 2 - c ^ 2
+  // a ^ 2 + 2ab + b ^ 2 = 1000 ^ 2 - a ^ 2 - b ^ 2
+  // a = (1000 ^ 2 / 2 - 1000 * b) / (1000 - b)
+  const num = 1000;
+  for (let b = 1; b < num / 2; b++) {
+    let a = ((num * num) / 2 - num * b) / (num - b);
+
+    if (a % 1 === 0) return a * b * (num - a - b);
+  }
 }
 
 console.time("pythagoreanTriplet");
@@ -177,7 +290,21 @@ console.log(answers.pythagoreanTriplet);
  */
 
 function sumOfPrimes() {
-    //Your code goes here
+  const size = 2000000;
+  function buildPrime() {
+    let isPrime = Array(size).fill(true);
+    let sum = 0;
+    for (let p = 2; p * p < size; p++) {
+      if (isPrime[p] == true) {
+        for (let i = p * p; i < size; i += p) isPrime[i] = false;
+      }
+    }
+
+    for (p = 2; p < size; p++) if (isPrime[p]) sum += p;
+    return sum;
+  }
+
+  return buildPrime();
 }
 
 console.time("sumOfPrimes");
@@ -212,7 +339,7 @@ console.log(answers.sumOfPrimes);
  */
 
 function largestProductInAGrid() {
-    //Your code goes here
+    return "skull"
 }
 
 console.time("largestProductInAGrid");
@@ -236,7 +363,7 @@ console.log(answers.largestProductInAGrid);
  */
 
 function highlyDivisibleTriangularNumber() {
-    //Your code goes here
+    return "aoleo"
 }
 
 console.time("highlyDivisibleTriangularNumber");
